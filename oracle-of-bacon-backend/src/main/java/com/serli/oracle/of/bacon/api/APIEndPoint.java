@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bson.Document;
+
+
 public class APIEndPoint {
     private final Neo4JRepository neo4JRepository;
     private final ElasticSearchRepository elasticSearchRepository;
@@ -25,6 +28,11 @@ public class APIEndPoint {
 
     @Get("bacon-to?actor=:actorName")
     public String getConnectionsToKevinBacon(String actorName) {
+        //*
+
+        redisRepository.SaveSearch(actorName);
+        System.out.println(redisRepository.getLastTenSearches());
+
 
         return "[\n" +
                 "{\n" +
@@ -65,7 +73,11 @@ public class APIEndPoint {
                 "}\n" +
                 "}\n" +
                 "]";
-    }
+    
+        //*/
+
+            //return neo4JRepository.getConnectionsToKevinBacon(actorName).toString();
+            }
 
     @Get("suggest?q=:searchQuery")
     public List<String> getActorSuggestion(String searchQuery) throws IOException {
@@ -78,15 +90,29 @@ public class APIEndPoint {
 
     @Get("last-searches")
     public List<String> last10Searches() {
+
+        return redisRepository.getLastTenSearches();
+        /*
         return Arrays.asList("Peckinpah, Sam",
                 "Robbins, Tim (I)",
                 "Freeman, Morgan (I)",
                 "De Niro, Robert",
                 "Pacino, Al (I)");
+                //*/
     }
 
     @Get("actor?name=:actorName")
     public String getActorByName(String actorName) {
+        
+        Document doc =mongoDbRepository.getActorByName(actorName).get();
+        if(!doc.isEmpty()){
+            return doc.toJson();
+
+        }else{
+            return " ";
+
+        }
+         /*
         return "{\n" +
                 "\"_id\": {\n" +
                 "\"$oid\": \"587bd993da2444c943a25161\"\n" +
@@ -102,5 +128,8 @@ public class APIEndPoint {
                 "\"soundtrack\"\n" +
                 "]\n" +
                 "}";
+        //*/
+
+    
     }
 }

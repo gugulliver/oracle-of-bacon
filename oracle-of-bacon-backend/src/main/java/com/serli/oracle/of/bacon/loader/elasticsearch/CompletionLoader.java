@@ -15,6 +15,7 @@ public class CompletionLoader {
     public static void main(String[] args) throws IOException, InterruptedException {
         RestHighLevelClient client = ElasticSearchRepository.createClient();
 
+        //~/home/guliver/DBnoQL
         if (args.length != 1) {
             System.err.println("Expecting 1 arguments, actual : " + args.length);
             System.err.println("Usage : completion-loader <actors file path>");

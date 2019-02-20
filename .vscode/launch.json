@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - CompletionLoader",
+            "request": "launch",
+            "mainClass": "com.serli.oracle.of.bacon.loader.elasticsearch.CompletionLoader",
+            "projectName": "oracle-of-bacon-backend"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Application",
+            "request": "launch",
+            "mainClass": "com.serli.oracle.of.bacon.Application",
+            "projectName": "oracle-of-bacon-backend"
+        }
+    ]
+}
